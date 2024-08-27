@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package com.thanos.api.proto.push;
+
+option java_package = "com.thanos.api.proto.push";
+
+//class文件的名称
+option java_outer_classname="PushGrpcTransport";
+
+//如果是false 每个message和service都会是java_outer_classname的内部类，相反则单独生成类文件，防止生成类文件过大
+option java_multiple_files=true;
+
+//服务接口定义，服务端和客户端都要遵循该接口进行通信
+service PushService{
+    rpc saveAlive(DefaultRequest) returns(DefaultResponse){}
+    rpc pushEthTransactions(EthTransactionsPushDTO) returns(DefaultResponse){}
+    rpc pushGlobalNodeEvents(GlobalNodeEventsPushDTO) returns(DefaultResponse){}
+    rpc getGlobalNodeEvent(BytesObject) returns(BytesObject){}
+    rpc getGlobalNodeEventReceipt(BytesObject) returns(BytesObject){}
+    rpc getEpochState(DefaultRequest) returns(BytesObject){}
+    rpc getLatestBeExecutedNum(DefaultRequest) returns(LongObject){};
+    rpc getLatestConsensusNumber(DefaultRequest) returns(LongObject){};
+    rpc getCurrentCommitRound(DefaultRequest) returns(LongObject){};
+    rpc getEthTransactionByHash(BytesObject) returns(BytesObject){};
+    rpc getEthTransactionsByHashes(ListBytesObject) returns(ListBytesObject){};
+    rpc getBlockByNumber(LongObject) returns(BlockBytesObject){};
+    rpc getEventDataByNumber(LongObject) returns(BytesObject){};
+    rpc ethCall(EthTransactionsPushDTO.EthTransactionPushDTO) returns(BytesObject){};
+}
+
+//定义响应消息
+message DefaultRequest{
+    string req=1;
+}
+
+//定义响应消息
+message DefaultResponse{
+    bool result=1;
+}
+
+message LongObject{
+    int64 value=1;
+}
+
+message StringObject{
+    string value=1;
+}
+
+message ListBytesObject{
+    repeated bytes value = 1;
+}
+
+message BytesObject{
+    bytes value = 1;
+}
+
+message BlockBytesObject{
+    bytes blockBaseInfo = 1;
+}
+
+message EthTransactionsPushDTO{
+    message EthTransactionPushDTO{
+        bytes publicKey = 1;
+        bytes nonce = 2;
+        int64 futureEventNumber = 3;
+        bytes gasPrice = 4;
+        bytes gasLimit = 5;
+        bytes receiveAddress = 6;
+        bytes value = 7;
+        bytes data = 8;
+        repeated bytes executeStates = 9;
+        bytes signature = 10;
+        bytes hash = 11;
+        bytes rlpEncoded = 12;
+
+
+    }
+    repeated EthTransactionPushDTO txs = 1;
+}
+
+message GlobalNodeEventsPushDTO{
+    message GlobalNodeEventPushDTO{
+        bytes hash=1;
+        bytes publicKey=2;
+        bytes nonce=3;
+        int64 futureEventNumber=4;
+        int32 commandCode=5;
+        bytes data=6;
+        bytes signature=7;
+    }
+    repeated GlobalNodeEventPushDTO nodes = 1;
+}

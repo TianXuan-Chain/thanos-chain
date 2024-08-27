@@ -1,0 +1,11 @@
+    function joinString(string _str1, string _str2) public view returns(uint[2] memory p){
+        bytes memory _str1ToBytes = bytes(_str1);
+        bytes memory _str2ToBytes = bytes(_str2);
+        string splitStr = "#";
+        bytes memory splitBytes =  bytes(splitStr);
+        string memory ret = new string(_str1ToBytes.length + splitBytes.length + _str2ToBytes.length);
+        bytes memory retTobytes = bytes(ret);
+        assembly {
+            staticcall(gas, 0x09, retTobytes, retTobytes.length, p, 0x40)
+        }
+    }

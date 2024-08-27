@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package com.thanos.api.proto.sync;
+
+option java_package = "com.thanos.api.proto.sync";
+
+//class文件的名称
+option java_outer_classname="SyncGrpcTransport";
+
+//如果是false 每个message和service都会是java_outer_classname的内部类，相反则单独生成类文件，防止生成类文件过大
+option java_multiple_files=true;
+
+//服务接口定义，服务端和客户端都要遵循该接口进行通信
+service SyncService {
+  rpc syncBlock(BlockBytesObject) returns(DefaultResponse){};
+}
+
+//定义响应消息
+message DefaultRequest{
+  string req=1;
+}
+
+//定义响应消息
+message DefaultResponse{
+  bool result=1;
+}
+
+message BlockBytesObject{
+  bytes blockBaseInfo = 1;
+}

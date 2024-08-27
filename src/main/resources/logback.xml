@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <!-- Be sure to flush latest logs on exit -->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %p [%c{1}]  %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/thanos-chain.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover hourly -->
+            <fileNamePattern>./logs/thanos-chain-%d{yyyy-MM-dd-'h'HH}.log</fileNamePattern>
+            <!-- ~1 month -->
+            <maxHistory>720</maxHistory>
+            <totalSizeCap>50GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %p [%c{1}]  %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- Don't discard INFO, DEBUG, TRACE events in case of queue is 80% full -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- Default is 256 -->
+        <!-- Logger will block incoming events (log calls) until queue will free some space -->
+        <!-- (the smaller value -> flush occurs often) -->
+        <queueSize>100</queueSize>
+
+        <appender-ref ref="FILE" />
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <root level="TRACE">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ASYNC"/>
+    </root>
+
+
+    <logger name="main" level="TRACE"/>
+    <logger name="gateway" level="DEBUG"/>
+    <logger name="consensus" level="INFO"/>
+    <logger name="network" level="INFO"/>
+    <logger name="state" level="INFO"/>
+    <logger name="tx-pool" level="DEBUG"/>
+    <logger name="ca" level="DEBUG"/>
+    <logger name="rlp" level="ERROR"/>
+    <logger name="utils" level="DEBUG"/>
+    <logger name="crypto" level="ERROR"/>
+    <logger name="thanos-worker" level="DEBUG"/>
+    <logger name="executor" level="DEBUG"/>
+    <logger name="VM" level="INFO"/>
+    <logger name="sync-layer2" level="DEBUG"/>
+    <logger name="sync" level="DEBUG"/>
+    <logger name="state-verify" level="DEBUG"/>
+    <logger name="ledger" level="DEBUG"/>
+    <logger name="discover" level="DEBUG"/>
+    <logger name="db" level="DEBUG"/>
+    <logger name="general" level="DEBUG"/>
+    <logger name="repository" level="INFO"/>
+    <logger name="java.nio" level="ERROR"/>
+    <logger name="io.netty" level="ERROR"/>
+    <logger name="io.grpc" level="ERROR"/>
+
+
+
+</configuration>
+
