@@ -21,8 +21,8 @@ mvn clean install -Dmaven.test.skip=true
 * [文档仓库 - 打包可执行文件](https://github.com/TianXuan-Chain/tianxuan-docs/blob/new-pages/tools/blockchain-browser/installation-manual/tianxaun-chain/executable-file.md)
 
 安装部署教程：
-* [在线文档 - 打包可执行文件](https://tianxuan.blockchain.163.com/installation-manual/tianxaun-chain/)
-* [文档仓库 - 天玄节点应用服务](https://github.com/TianXuan-Chain/tianxuan-docs/tree/main/installation-manual/tianxaun-chain)
+* [在线文档 - 天玄节点应用服务安装](https://tianxuan.blockchain.163.com/installation-manual/tianxaun-chain/)
+* [文档仓库 - 天玄节点应用服务安装](https://github.com/TianXuan-Chain/tianxuan-docs/tree/main/installation-manual/tianxaun-chain)
 
 # License
 Apache 2.0
