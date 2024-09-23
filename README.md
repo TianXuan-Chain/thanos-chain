@@ -11,4 +11,4 @@
 mvn clean install -Dmaven.test.skip=true
 ```
 
-注意， 节点网关编译打包需要依赖 thanos-common.jar 包。详细的打包教程可见：[打包可执行文件](https://github.com/TianXuan-Chain/tianxuan-docs/blob/new-pages/tools/blockchain-browser/installation-manual/tianxaun-chain/executable-file.md)
+注意， 节点应用服务编译打包需要依赖 thanos-common.jar 包。详细的打包教程可见：[打包可执行文件](https://github.com/TianXuan-Chain/tianxuan-docs/blob/new-pages/tools/blockchain-browser/installation-manual/tianxaun-chain/executable-file.md)
