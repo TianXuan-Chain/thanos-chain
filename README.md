@@ -13,7 +13,7 @@ mvn clean install -Dmaven.test.skip=true
 ```
 指令执行成功后，会在 `target` 文件夹内产生 `thanos-chain.jar` 文件。
 
-注意， 节点应用服务编译打包需要依赖 thanos-common.jar 包。
+注意， 节点应用服务编译打包需要依赖 `thanos-common.jar` 包。
 
 # 教程
 打包编译教程：
